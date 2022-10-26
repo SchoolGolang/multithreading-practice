@@ -6,6 +6,7 @@ import (
 	"github.com/SchoolGolang/multithreading-practice/plant"
 	"github.com/SchoolGolang/multithreading-practice/plant/repository"
 	"github.com/SchoolGolang/multithreading-practice/sensor"
+	"log"
 )
 
 type HealthProcessor struct {
@@ -28,4 +29,17 @@ func NewHealthProcessor(
 
 func (p *HealthProcessor) RunProcessor(ctx context.Context) {
 	//TODO: implement process functionality
+
+	for {
+		select {
+		case data := <-p.input:
+			log.Printf("type: %T, value: %[1]v", data)
+			negative := p.plantsRepo.GetPlant(data.PlantID)
+			if negative.CurrentHealth.LeavesState < 50 || negative.CurrentHealth.RootsState < 50 {
+				p.dronesRepo.ReplacePlant(data.PlantID)
+			}
+		case <-ctx.Done():
+			return
+		}
+	}
 }
