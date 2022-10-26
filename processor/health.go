@@ -27,5 +27,21 @@ func NewHealthProcessor(
 }
 
 func (p *HealthProcessor) RunProcessor(ctx context.Context) {
-	//TODO: implement process functionality
+	for {
+		select {
+		case <-ctx.Done():
+			return
+		case measurement := <-p.input:
+			go func() {
+				minHealth := 50.0
+				plantID := measurement.PlantID
+				currRootsHealth := measurement.Data.RootsState
+				currLeavesHealth := measurement.Data.LeavesState
+
+				if currRootsHealth < minHealth || currLeavesHealth < minHealth {
+					p.dronesRepo.ReplacePlant(plantID)
+				}
+			}()
+		}
+	}
 }
