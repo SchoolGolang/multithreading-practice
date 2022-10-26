@@ -49,7 +49,6 @@ func (ps *PlantsServiceMock) SendRandomUpdates(ctx context.Context) {
 			switch rand.Intn(20) {
 			case 0:
 				pID, ph := plantID, GetPHData()
-				//pl := ps.plantsRepo.GetPlant(pID)
 				log.Printf("Plant ID: %v, nes ph: %d", pID, ph)
 				ps.UpdatePlantPH(pID, ph)
 			case 1:
