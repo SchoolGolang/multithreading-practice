@@ -24,9 +24,9 @@ func Run(ctx context.Context) {
 
 	plantsService := mock.NewPlantsServiceMock(plantsRepo, phSensorsRepo, hydrationSensorsRepo, healthSensorsRepo, 20)
 
-	//for i := 0; i < 10; i++ {
-	plantsService.AddPlant()
-	//}
+	for i := 0; i < 10; i++ {
+		plantsService.AddPlant()
+	}
 
 	phListener := listener.NewListener[sensor.SensorData[int]]()
 	hydrationListener := listener.NewListener[sensor.SensorData[float64]]()

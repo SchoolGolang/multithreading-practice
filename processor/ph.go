@@ -27,7 +27,7 @@ func NewPHProcessor(
 }
 
 func (p *PHProcessor) RunProcessor(ctx context.Context) {
-	//TODO: implement process functionality
+
 	for {
 		select {
 		case data := <-p.input:
@@ -35,10 +35,6 @@ func (p *PHProcessor) RunProcessor(ctx context.Context) {
 			low, high := p.plantsRepo.GetNormalPh(data.PlantID)
 			if low > int(data.Data) || int(data.Data) > high {
 				p.dronesRepo.AdjustSoils(data.PlantID, (low+high)/2)
-				//case data := <-p.input:
-				//	Plant := p.plantsRepo.GetPlant(data.PlantID)
-				//	if Plant.NormalLowerPh > int(data.Data) || Plant.NormalUpperPh < int(data.Data) {
-				//		p.dronesRepo.AdjustSoils(data.PlantID, (Plant.NormalUpperPh+Plant.NormalLowerPh)/2)
 
 			}
 

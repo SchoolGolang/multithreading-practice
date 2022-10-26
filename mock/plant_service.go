@@ -57,10 +57,10 @@ func (ps *PlantsServiceMock) SendRandomUpdates(ctx context.Context) {
 				log.Printf("Plant ID: %v, nes gd: %d", pID, gd)
 				ps.UpdatePlantHydration(pID, gd)
 
-				//case 2:
-				//	pID, hp := plantID, GetHealthData()
-				//	log.Printf("Plant ID: %v, nes hp: %d", pID, hp)
-				//	ps.UpdatePlantHealth(pID, hp)
+			case 2:
+				pID, hp := plantID, GetHealthData()
+				log.Printf("Plant ID: %v, nes hp: %d", pID, hp)
+				ps.UpdatePlantHealth(pID, hp)
 			}
 			time.Sleep(200 * time.Millisecond)
 		}

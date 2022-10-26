@@ -2,7 +2,6 @@ package listener
 
 import (
 	"context"
-	//"log"
 )
 
 type Listener[T any] interface {

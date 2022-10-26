@@ -28,7 +28,6 @@ func NewHealthProcessor(
 }
 
 func (p *HealthProcessor) RunProcessor(ctx context.Context) {
-	//TODO: implement process functionality
 
 	for {
 		select {

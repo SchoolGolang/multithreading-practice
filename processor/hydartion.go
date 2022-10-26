@@ -28,7 +28,7 @@ func NewHydrationProcessor(
 }
 
 func (p *HydrationProcessor) RunProcessor(ctx context.Context) {
-	//TODO: implement process functionality
+
 	for {
 		select {
 		case data := <-p.input:
