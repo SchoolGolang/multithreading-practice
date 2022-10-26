@@ -5,6 +5,7 @@ import (
 	droneRepository "github.com/SchoolGolang/multithreading-practice/drone/repository"
 	"github.com/SchoolGolang/multithreading-practice/plant/repository"
 	"github.com/SchoolGolang/multithreading-practice/sensor"
+	"log"
 )
 
 type PHProcessor struct {
@@ -26,5 +27,18 @@ func NewPHProcessor(
 }
 
 func (p *PHProcessor) RunProcessor(ctx context.Context) {
-	//TODO: implement process functionality
+	for {
+		select {
+		case data := <-p.input:
+			log.Printf("type ph: %T, value: %[1]v", data)
+			low, high := p.plantsRepo.GetNormalPh(data.PlantID)
+			if low > int(data.Data) || int(data.Data) > high {
+				p.dronesRepo.AdjustSoils(data.PlantID, (low+high)/2)
+
+			}
+
+		case <-ctx.Done():
+			return
+		}
+	}
 }

@@ -5,6 +5,7 @@ import (
 	droneRepository "github.com/SchoolGolang/multithreading-practice/drone/repository"
 	"github.com/SchoolGolang/multithreading-practice/plant/repository"
 	"github.com/SchoolGolang/multithreading-practice/sensor"
+	"log"
 )
 
 type HydrationProcessor struct {
@@ -26,5 +27,16 @@ func NewHydrationProcessor(
 }
 
 func (p *HydrationProcessor) RunProcessor(ctx context.Context) {
-	//TODO: implement process functionality
+	for {
+		select {
+		case data := <-p.input:
+			log.Printf("type: %T, value: %[1]v", data)
+			normal := p.plantsRepo.GetHydration(data.PlantID)
+			if normal > float64(data.Data) {
+				p.dronesRepo.Hydrate(data.PlantID, normal)
+			}
+		case <-ctx.Done():
+			return
+		}
+	}
 }

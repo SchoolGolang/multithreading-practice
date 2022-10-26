@@ -8,6 +8,7 @@ import (
 	sensorRepo "github.com/SchoolGolang/multithreading-practice/sensor/repository"
 	"github.com/SchoolGolang/multithreading-practice/util"
 	"github.com/google/uuid"
+	"log"
 	"math/rand"
 	"time"
 )
@@ -47,11 +48,18 @@ func (ps *PlantsServiceMock) SendRandomUpdates(ctx context.Context) {
 		default:
 			switch rand.Intn(20) {
 			case 0:
-				ps.UpdatePlantPH(plantID, GetPHData())
+				pID, ph := plantID, GetPHData()
+				log.Printf("Plant ID: %v, nes ph: %d", pID, ph)
+				ps.UpdatePlantPH(pID, ph)
 			case 1:
-				ps.UpdatePlantHydration(plantID, GetHydrationData())
+				pID, gd := plantID, GetHydrationData()
+				log.Printf("Plant ID: %v, nes gd: %d", pID, gd)
+				ps.UpdatePlantHydration(pID, gd)
+
 			case 2:
-				ps.UpdatePlantHealth(plantID, GetHealthData())
+				pID, hp := plantID, GetHealthData()
+				log.Printf("Plant ID: %v, nes hp: %d", pID, hp)
+				ps.UpdatePlantHealth(pID, hp)
 			}
 			time.Sleep(200 * time.Millisecond)
 		}
