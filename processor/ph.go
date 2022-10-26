@@ -26,5 +26,23 @@ func NewPHProcessor(
 }
 
 func (p *PHProcessor) RunProcessor(ctx context.Context) {
-	//TODO: implement process functionality
+	for {
+		select {
+		case <-ctx.Done():
+			return
+		case measurement := <-p.input:
+			go func() {
+				plantID := measurement.PlantID
+				currPh := measurement.Data
+				minPh, maxPh := p.plantsRepo.GetNormalPh(plantID)
+				desiredPh := (minPh + maxPh) / 2 // Щоб не на граничне змінювати, а дати простір для змін в обидві сторони.
+
+				if currPh < minPh {
+					p.dronesRepo.AdjustSoils(plantID, desiredPh-currPh)
+				} else if maxPh > currPh {
+					p.dronesRepo.AdjustSoils(plantID, desiredPh-currPh)
+				}
+			}()
+		}
+	}
 }

@@ -26,5 +26,21 @@ func NewHydrationProcessor(
 }
 
 func (p *HydrationProcessor) RunProcessor(ctx context.Context) {
-	//TODO: implement process functionality
+	for {
+		select {
+		case <-ctx.Done():
+			return
+		case measurement := <-p.input:
+			go func() {
+				plantID := measurement.PlantID
+				currHydration := measurement.Data
+				normalHydration := p.plantsRepo.GetNormalHydration(plantID)
+
+				if currHydration < normalHydration {
+					p.dronesRepo.Hydrate(plantID, 1.0-currHydration)
+					// p.dronesRepo.Hydrate(plantID, normalHydration-currHydration) Немає інформації як поливати.
+				} // За умовою невідомо чи треба строга нерівність чи ні.
+			}()
+		}
+	}
 }
