@@ -44,14 +44,4 @@ func GetAgeData() int  {
 	return  rand.Intn(20)+10
 }
 
-//func GetDroneData() drone.Drone {
-//	return drone.NewC3PODrone(
-//		uuid.New().String(),
-//		100,
-//		util.Point{
-//			X: float64(util.GetRandomIndex(1000)),
-//			Y: float64(util.GetRandomIndex(1000)),
-//		},
-//	)
-//}
 

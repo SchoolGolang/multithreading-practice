@@ -28,17 +28,16 @@ func NewHealthProcessor(
 }
 
 func (p *HealthProcessor) RunProcessor(ctx context.Context) {
-	//TODO: implement process functionality
-	for{
+	for {
 		select {
-		case RecData:= <-p.input:
-			plant:= p.plantsRepo.GetPlant(RecData.PlantID)
+		case RecData := <-p.input:
+			plant := p.plantsRepo.GetPlant(RecData.PlantID)
 			switch {
 			case plant.CurrentHealth.LeavesState < 50 || plant.CurrentHealth.RootsState < 50:
 				p.dronesRepo.ReplacePlant(RecData.PlantID)
-				log.Printf("Рівень здоров'я рослини %s з ID: %s <50  потребує заміни",plant.Name,RecData.PlantID)
+				log.Printf("Рівень здоров'я рослини %s з ID: %s <50  потребує заміни", plant.Name, RecData.PlantID)
 			default:
-				log.Printf("У рослини %s з ID: %s рівень здоров'я листя %v у та коріння: %v, ",plant.Name,RecData.PlantID,plant.CurrentHealth.LeavesState, plant.CurrentHealth.RootsState)
+				log.Printf("У рослини %s з ID: %s рівень здоров'я листя %v у та коріння: %v, ", plant.Name, RecData.PlantID, plant.CurrentHealth.LeavesState, plant.CurrentHealth.RootsState)
 			}
 		case <-ctx.Done():
 			return

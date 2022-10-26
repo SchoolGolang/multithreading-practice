@@ -34,7 +34,6 @@ func (d *DroneRepo) ReplacePlant(plantId string) string {
 	return d.plantsService.AddPlant()
 }
 
-//Рослина виросла
 func (d *DroneRepo) AgeRipePlant(plantId string) string {
 	d.plantsService.RemovePlant(plantId)
 	return d.plantsService.AddPlant()

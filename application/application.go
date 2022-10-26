@@ -22,7 +22,7 @@ func Run(ctx context.Context) {
 	hydrationSensorsRepo := sensorRepo.NewRepository[float64]()
 	healthSensorsRepo := sensorRepo.NewRepository[plant.HealthData]()
 	ageSensorsRepo := sensorRepo.NewRepository[int]()
-	plantsService := mock.NewPlantsServiceMock(plantsRepo, phSensorsRepo, hydrationSensorsRepo, healthSensorsRepo,ageSensorsRepo, 20)
+	plantsService := mock.NewPlantsServiceMock(plantsRepo, phSensorsRepo, hydrationSensorsRepo, healthSensorsRepo, ageSensorsRepo, 20)
 
 	for i := 0; i < 10; i++ {
 		plantsService.AddPlant()
@@ -65,12 +65,12 @@ func Run(ctx context.Context) {
 	healthProcessor := processor.NewHealthProcessor(plantsRepo, healthOut, dronesRepo)
 	go healthProcessor.RunProcessor(ctx)
 
-	ageProcessor := processor.NewAgeProcessor(plantsRepo, ageOut , dronesRepo)
+	ageProcessor := processor.NewAgeProcessor(plantsRepo, ageOut, dronesRepo)
 	go ageProcessor.RunProcessor(ctx)
 
 	wg := sync.WaitGroup{}
 	wg.Add(1)
-	go gracefulShutdown(ctx, &wg, phSensorsRepo, hydrationSensorsRepo, healthSensorsRepo,ageSensorsRepo)
+	go gracefulShutdown(ctx, &wg, phSensorsRepo, hydrationSensorsRepo, healthSensorsRepo, ageSensorsRepo)
 	wg.Wait()
 
 }

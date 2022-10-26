@@ -16,5 +16,4 @@ type Repository interface {
 	SetPh(id string, ph int)
 	SetHydration(id string, hydration float64)
 	SetHealth(id string, data plant.HealthData)
-
 }
