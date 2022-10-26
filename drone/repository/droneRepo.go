@@ -33,3 +33,8 @@ func (d *DroneRepo) ReplacePlant(plantId string) string {
 	d.plantsService.RemovePlant(plantId)
 	return d.plantsService.AddPlant()
 }
+
+func (d *DroneRepo) AgeRipePlant(plantId string) string {
+	d.plantsService.RemovePlant(plantId)
+	return d.plantsService.AddPlant()
+}
