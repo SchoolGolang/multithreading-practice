@@ -27,7 +27,6 @@ func NewPHProcessor(
 }
 
 func (p *PHProcessor) RunProcessor(ctx context.Context) {
-
 	for {
 		select {
 		case data := <-p.input:

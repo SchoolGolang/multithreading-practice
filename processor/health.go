@@ -28,7 +28,6 @@ func NewHealthProcessor(
 }
 
 func (p *HealthProcessor) RunProcessor(ctx context.Context) {
-
 	for {
 		select {
 		case data := <-p.input:

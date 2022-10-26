@@ -6,7 +6,6 @@ import (
 	"github.com/SchoolGolang/multithreading-practice/plant/repository"
 	"github.com/SchoolGolang/multithreading-practice/sensor"
 	"log"
-	//"log"
 )
 
 type HydrationProcessor struct {
@@ -28,7 +27,6 @@ func NewHydrationProcessor(
 }
 
 func (p *HydrationProcessor) RunProcessor(ctx context.Context) {
-
 	for {
 		select {
 		case data := <-p.input:
