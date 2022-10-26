@@ -9,7 +9,7 @@ type PlantData struct {
 	CurrentHydration float64
 	CurrentPh        int
 	CurrentHealth    HealthData
-	Age				 int
+	Age              int
 }
 
 type HealthData struct {

@@ -40,8 +40,6 @@ func GetHealthData() plant.HealthData {
 		RootsState:  float64(rand.Intn(90)) + 10.0,
 	}
 }
-func GetAgeData() int  {
-	return  rand.Intn(20)+10
+func GetAgeData() int {
+	return rand.Intn(20) + 10
 }
-
-

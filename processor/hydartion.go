@@ -6,7 +6,6 @@ import (
 	"github.com/SchoolGolang/multithreading-practice/plant/repository"
 	"github.com/SchoolGolang/multithreading-practice/sensor"
 	"log"
-
 	//"log"
 )
 
