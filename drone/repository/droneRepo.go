@@ -1,6 +1,8 @@
 package repository
 
 import (
+	"fmt"
+
 	"github.com/SchoolGolang/multithreading-practice/drone"
 	"github.com/SchoolGolang/multithreading-practice/mock"
 	"github.com/SchoolGolang/multithreading-practice/plant/repository"
@@ -22,14 +24,17 @@ func NewDroneRepo(plantsService *mock.PlantsServiceMock, plantsRepository reposi
 }
 
 func (d *DroneRepo) AdjustSoils(plantId string, ph int) {
+	fmt.Println("AdjustSoils")
 	d.plantsService.UpdatePlantPH(plantId, ph)
 }
 
 func (d *DroneRepo) Hydrate(plantId string, value float64) {
+	fmt.Println("Hydrate")
 	d.plantsService.UpdatePlantHydration(plantId, value)
 }
 
 func (d *DroneRepo) ReplacePlant(plantId string) string {
+	fmt.Println("ReplacePlant")
 	d.plantsService.RemovePlant(plantId)
 	return d.plantsService.AddPlant()
 }
